@@ -29,12 +29,13 @@ const (
 var logDisplay *os.File
 var loggerInfo *log.Logger
 var loggerError *log.Logger
+var loggerFatalError *log.Logger
 var loggerWarning *log.Logger
 var loggerDebug *log.Logger
 var debug bool
 
 /*
- * Func for init log
+ * Func for init log, mandatory
  */
 func Init_log(d bool) {
 
@@ -44,12 +45,13 @@ func Init_log(d bool) {
 
 	loggerInfo = log.New(logDisplay, "INFO    ", logMode)
 	loggerError = log.New(logDisplay, RED+"ERROR   ", logMode)
+	loggerFatalError = log.New(logDisplay, RED+"FATAL   ", logMode)
 	loggerWarning = log.New(logDisplay, YELLOW+"WARNING ", logMode)
 	loggerDebug = log.New(logDisplay, CYAN+"DEBUG   ", logMode)
 }
 
 func Fatal_error(v ...interface{}) {
-	loggerError.Println(RED + fmt.Sprint(v...) + STOP)
+	loggerFatalError.Println(RED + fmt.Sprint(v...) + STOP)
 	os.Exit(0)
 }
 func Error(v ...interface{}) {
