@@ -10,6 +10,7 @@ import (
 /*
  * Const for colors
  */
+
 const (
 	STOP  = "\x1b[0m"
 	WHITE = "\x1b[37;1m"
@@ -26,6 +27,7 @@ const (
 /*
  * Var for display
  */
+
 var logDisplay *os.File
 var loggerInfo *log.Logger
 var loggerError *log.Logger
@@ -37,9 +39,10 @@ var debug bool
 /*
  * Func for init log, mandatory
  */
-func Init_log(d bool) {
 
-	debug = d
+func Init_log(active_debug_log bool) {
+
+	debug = active_debug_log
 	logDisplay = os.Stdout
 	logMode := log.Ldate | log.Ltime
 
@@ -49,6 +52,10 @@ func Init_log(d bool) {
 	loggerWarning = log.New(logDisplay, YELLOW+"WARNING ", logMode)
 	loggerDebug = log.New(logDisplay, CYAN+"DEBUG   ", logMode)
 }
+
+/*
+ * Func for log
+ */
 
 func Fatal_error(v ...interface{}) {
 	loggerFatalError.Println(RED + fmt.Sprint(v...) + STOP)
@@ -86,6 +93,10 @@ func White_info(v ...interface{}) {
 func Cyan_info(v ...interface{}) {
 	loggerInfo.Println(BRIGHTCYAN + fmt.Sprint(v...) + STOP)
 }
+
+/*
+ * Init func for progress bar
+ */
 
 func Init_bar(l int, display bool) *pb.ProgressBar {
 
